@@ -1,0 +1,86 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+    defaultConfig {
+        applicationId "com.omise.charity"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField "String", "OMISE_CHARITY_API_URL", "\"https://virtserver.swaggerhub.com/chakritw/tamboon-api/1.0.0/\""
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    // Kotlin Library
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "androidx.core:core-ktx:$x_core_ktx_version"
+
+    // RxJava and RxAndroid
+    implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
+
+    // Retrofit library
+    //implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    //implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    //implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+    //implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
+    // Retrofit
+    implementation (["com.squareup.retrofit2:retrofit:$retrofit_version",
+                     "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version",
+                     "com.squareup.retrofit2:converter-gson:$retrofit_version",
+                     "com.squareup.okhttp3:okhttp:$okhttp_version",
+                     "com.squareup.okhttp3:logging-interceptor:$okhttp_version"])
+
+    // Dagger
+    implementation "com.google.dagger:dagger:$dagger_version"
+    //annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+    implementation "com.google.dagger:dagger-android-support:$dagger_version"
+    //annotationProcessor "com.google.dagger:dagger-android-processor:$dagger_version"
+    kapt "com.google.dagger:dagger-android-processor:$dagger_version"
+
+
+    // Android X AppCompat
+    implementation "androidx.appcompat:appcompat:$x_appcompat_version"
+
+    // Android X CardView
+    implementation "androidx.cardview:cardview:$x_cardview_version"
+
+    // Android X RecyclerView
+    implementation "androidx.recyclerview:recyclerview:$x_recyclerview_version"
+
+    // Android X SwipeRefreshLayout
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:$x_swiperefreshlayout_version"
+
+    // Glide Image loading
+    // Glide - used for image loading
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+
+    // Android X Material Design
+    implementation "com.google.android.material:material:$material_design_version"
+
+    //anko
+    implementation "org.jetbrains.anko:anko:$anko_version"
+    implementation "org.jetbrains.anko:anko-sqlite:$anko_version"
+
+    implementation "androidx.constraintlayout:constraintlayout:$x_appcompat_constraintlayout_version"
+    testImplementation "junit:junit:$junit_version"
+    androidTestImplementation "androidx.test.ext:junit:$x_junit_test_ext_version"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$x_espresso_version"
+}
