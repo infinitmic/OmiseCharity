@@ -5,7 +5,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.omise.charity.R
-import com.omise.charity.network.dto.Charity
+import com.omise.charity.model.Charity
 import com.omise.charity.view.common.ItemAdapter
 import com.omise.charity.view.common.bindView
 import com.omise.charity.view.common.loadImage

@@ -2,7 +2,7 @@ package com.omise.charity.network.dto
 
 import com.google.gson.annotations.SerializedName
 
-data class CharityList(
+data class CharityListDto(
     @SerializedName("total") val totalResults: Int?,
-    @SerializedName("data") val charities: List<Charity>?
+    @SerializedName("data") val charityDtos: List<CharityDto>?
 )

@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.omise.charity.R
-import com.omise.charity.network.dto.Charity
-import com.omise.charity.network.dto.CharityList
+import com.omise.charity.model.Charity
+import com.omise.charity.model.CharityList
 import com.omise.charity.view.common.BaseFragmentWithPresenter
 import com.omise.charity.view.common.bindToSwipeRefresh
 import kotlinx.android.synthetic.main.fragment_charity_list.*
@@ -45,7 +45,7 @@ class CharityListFragment : BaseFragmentWithPresenter(), CharityListFragmentView
     }
 
     override fun show(item: CharityList) {
-        val charityItemsAdapter = item.charities!!.map(this::createCharityItemsAdapter)
+        val charityItemsAdapter = item.charityList!!.map(this::createCharityItemsAdapter)
         mRecyclerView.adapter = CharityListAdapter(charityItemsAdapter)
     }
 
@@ -60,6 +60,22 @@ class CharityListFragment : BaseFragmentWithPresenter(), CharityListFragmentView
         callback.showError(error)
     }
 
+    override fun displayNoNetworkError() {
+        callback.displayNoNetworkError()
+    }
+
+    override fun displayServerUnreachableError() {
+        callback.displayServerUnreachableError()
+    }
+
+    override fun displayCallFailedError() {
+        callback.displayCallFailedError()
+    }
+
+    override fun displayGenericErrorMessage(errorMsg: String?) {
+        callback.displayGenericErrorMessage(errorMsg)
+    }
+
     override fun showMessage(data: String) {
         callback.showMessage(data)
     }
@@ -72,5 +88,9 @@ class CharityListFragment : BaseFragmentWithPresenter(), CharityListFragmentView
         fun showError(error: Throwable)
         fun loadDonations(charity: Charity)
         fun showMessage(data: String)
+        fun displayNoNetworkError()
+        fun displayServerUnreachableError()
+        fun displayCallFailedError()
+        fun displayGenericErrorMessage(errorMsg: String?)
     }
 }

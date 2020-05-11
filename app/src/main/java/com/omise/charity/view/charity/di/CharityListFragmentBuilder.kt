@@ -11,6 +11,6 @@ abstract class CharityListFragmentBuilder {
 
     @FragmentScope
     @ContributesAndroidInjector(modules = arrayOf(CharityListFragmentModule::class))
-    abstract fun contributesHeadlinesFragment(): CharityListFragment
+    abstract fun contributesCharityListFragment(): CharityListFragment
 
 }
