@@ -6,6 +6,8 @@ import com.omise.charity.view.charity.fragments.CharityListFragment
 import com.omise.charity.view.common.SingleFragmentActivity
 import com.omise.charity.view.common.action
 import com.omise.charity.view.common.snack
+import com.omise.charity.view.common.startActivity
+import com.omise.charity.view.donate.screen.DonateActivity
 
 class CharityListActivity : SingleFragmentActivity(), CharityListFragment.OnCharity {
 
@@ -25,6 +27,10 @@ class CharityListActivity : SingleFragmentActivity(), CharityListFragment.OnChar
     override fun displayCallFailedError() = displayMessage("Operation Failed!")
     override fun displayGenericErrorMessage(errorMsg: String?) =
         displayMessage("Unknown Error Occurred!")
+
+    override fun onDonateClick() {
+        startActivity<DonateActivity>()
+    }
 
     private fun displayMessage(data: String) {
         window.decorView.rootView

@@ -17,8 +17,8 @@ class CharityListFragment : BaseFragmentWithPresenter(), CharityListFragmentView
 
     @Inject
     override lateinit var presenter: CharityListFragmentPresenter
-    override var refresh by bindToSwipeRefresh(R.id.swipeRefreshView)
 
+    override var refresh by bindToSwipeRefresh(R.id.swipeRefreshView)
 
     private lateinit var callback: OnCharity
 
@@ -37,6 +37,7 @@ class CharityListFragment : BaseFragmentWithPresenter(), CharityListFragmentView
         super.onViewCreated(view, savedInstanceState)
         mRecyclerView.layoutManager = LinearLayoutManager(activity)
         swipeRefreshView.setOnRefreshListener { presenter.onRefresh() }
+        btnDonations.setOnClickListener { callback.onDonateClick() }
         presenter.onViewCreated()
     }
 
@@ -84,6 +85,12 @@ class CharityListFragment : BaseFragmentWithPresenter(), CharityListFragmentView
         this.callback = callback
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        swipeRefreshView.setOnRefreshListener(null)
+        btnDonations.setOnClickListener(null)
+    }
+
     interface OnCharity {
         fun showError(error: Throwable)
         fun loadDonations(charity: Charity)
@@ -92,5 +99,6 @@ class CharityListFragment : BaseFragmentWithPresenter(), CharityListFragmentView
         fun displayServerUnreachableError()
         fun displayCallFailedError()
         fun displayGenericErrorMessage(errorMsg: String?)
+        fun onDonateClick()
     }
 }

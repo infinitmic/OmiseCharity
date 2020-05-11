@@ -16,9 +16,11 @@
         android:theme="@style/AppTheme"
         tools:targetApi="m">
         <activity android:name=".view.charity.screen.CharityListActivity">
+
+        </activity>
+        <activity android:name=".view.donate.screen.DonateActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

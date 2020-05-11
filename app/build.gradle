@@ -75,6 +75,8 @@ dependencies {
     // Android X Material Design
     implementation "com.google.android.material:material:$material_design_version"
 
+    implementation "com.intuit.sdp:sdp-android:$sdp_version"
+
     //anko
     implementation "org.jetbrains.anko:anko:$anko_version"
     implementation "org.jetbrains.anko:anko-sqlite:$anko_version"

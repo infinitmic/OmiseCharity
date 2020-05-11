@@ -1,0 +1,37 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="BaseTextSmall" parent="TextAppearance.AppCompat.Small"/>
+
+    <style name="CharityHeaderTitleStyle" parent="TextAppearance.AppCompat.Large">
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:shadowRadius">1</item>
+        <item name="android:shadowDx">-1</item>
+        <item name="android:shadowDy">-1</item>
+    </style>
+
+    <style name="CharityLabelTextStyle" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:shadowRadius">1</item>
+        <item name="android:shadowDx">-1</item>
+        <item name="android:shadowDy">-1</item>
+        <item name="android:maxRows">1</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="CharityLabelTextStyleBold" parent="CharityLabelTextStyle">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="CharityEditTextStyle" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:shadowRadius">1</item>
+        <item name="android:shadowDx">-1</item>
+        <item name="android:shadowDy">-1</item>
+        <item name="android:maxRows">1</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:backgroundTint" tools:targetApi="lollipop">@color/colorPrimaryDark</item>
+    </style>
+</resources>

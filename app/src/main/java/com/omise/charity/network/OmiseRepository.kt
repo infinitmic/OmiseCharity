@@ -1,9 +1,9 @@
 package com.omise.charity.network
 
 import com.omise.charity.model.CharitiesResult
-import com.omise.charity.network.dto.CharitiesApiResponse
-import com.omise.charity.network.dto.CharitiesFailureResponse
-import com.omise.charity.network.dto.CharitiesSuccessResponse
+import com.omise.charity.model.DonateForm
+import com.omise.charity.model.DonateResult
+import com.omise.charity.network.dto.*
 import io.reactivex.Single
 
 class OmiseRepository(private val apiInterface: ApiInterface) {
@@ -12,6 +12,14 @@ class OmiseRepository(private val apiInterface: ApiInterface) {
         return apiInterface.getCharityList()
             .map { CharitiesSuccessResponse(it) }
             .mapError<CharitiesFailureResponse, CharitiesApiResponse>()
+            .mapNetworkErrors()
+            .mapToDomain()
+    }
+
+    fun donate(donateForm: DonateForm): Single<DonateResult> {
+        return apiInterface.donate(donateForm)
+            .map { DonateSuccessResponse(it) }
+            .mapError<DonateFailureResponse, DonateApiResponse>()
             .mapNetworkErrors()
             .mapToDomain()
     }

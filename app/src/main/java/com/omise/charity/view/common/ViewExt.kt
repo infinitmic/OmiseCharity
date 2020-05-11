@@ -1,5 +1,6 @@
 package com.omise.charity.view.common
 
+import android.app.Activity
 import android.content.Context
 import android.view.View
 import android.widget.ImageView
@@ -52,3 +53,6 @@ fun Snackbar.action(action: String, color: Int? = null, listener: (View) -> Unit
     setAction(action, listener)
     color?.let { setActionTextColor(color) }
 }
+
+inline fun <reified T : Activity> Context.startActivity(vararg params: Pair<String, Any?>) =
+    CharityActivityInternals.internalStartActivity(this, T::class.java, params)
