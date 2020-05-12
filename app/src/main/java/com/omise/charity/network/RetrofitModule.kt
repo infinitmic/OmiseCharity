@@ -2,6 +2,7 @@ package com.omise.charity.network
 
 import com.google.gson.Gson
 import com.omise.charity.BuildConfig
+import com.omise.charity.network.interceptors.ResponseInterceptor
 import com.omise.charity.network.interceptors.makeHeadersInterceptor
 import com.omise.charity.network.interceptors.makeLoggingInterceptor
 import dagger.Module
@@ -41,6 +42,7 @@ class RetrofitModule {
             .readTimeout(60, TimeUnit.SECONDS)
             .addInterceptor(makeHeadersInterceptor())
             .addInterceptor(makeLoggingInterceptor())
+            .addInterceptor(ResponseInterceptor())
             .build()
     }
 

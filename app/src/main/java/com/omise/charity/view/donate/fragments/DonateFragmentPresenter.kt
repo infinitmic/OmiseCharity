@@ -65,15 +65,16 @@ class DonateFragmentPresenter @Inject constructor(
     }
 
     private fun onApiSuccess(donateResult: DonateResult) {
-        when ((donateResult as Donate).success) {
-            true -> {
-                view.hideProgress()
-                view.enableAllInput()
+        view.hideProgress()
+        view.enableAllInput()
+        when ((donateResult as Donate).statusCode) {
+            200 -> {
                 view.onDonateSuccess()
             }
-            false -> {
-                view.hideProgress()
-                view.enableAllInput()
+            201 -> {
+                view.onDonateFailure((donateResult).errorMessage)
+            }
+            else -> {
                 view.onDonateFailure((donateResult).errorMessage)
             }
         }

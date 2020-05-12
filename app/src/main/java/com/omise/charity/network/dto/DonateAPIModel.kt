@@ -10,17 +10,27 @@ interface DonateApiResponse : DomainMappable<DonateResult> {
 }
 
 data class DonateSuccessResponse(
-    private val donateDto: DonateDto
+    private val doneDtoWrapper: DonateDtoWrapper
 ) : DonateApiResponse {
     override fun asDomain() =
-        Donate(donateDto.success, donateDto.errorCode, donateDto.errorMessage)
+        Donate(
+            doneDtoWrapper.statusCode,
+            doneDtoWrapper.responseData?.success,
+            doneDtoWrapper.responseData?.errorCode,
+            doneDtoWrapper.responseData?.errorMessage
+        )
 }
 
 data class DonateFailureResponse(
-    private val donateDto: DonateDto
+    private val doneDtoWrapper: DonateDtoWrapper
 ) : DonateApiResponse {
     override fun asDomain() =
-        Donate(donateDto.success, donateDto.errorCode, donateDto.errorMessage)
+        Donate(
+            doneDtoWrapper.statusCode,
+            doneDtoWrapper.responseData?.success,
+            doneDtoWrapper.responseData?.errorCode,
+            doneDtoWrapper.responseData?.errorMessage
+        )
 }
 
 

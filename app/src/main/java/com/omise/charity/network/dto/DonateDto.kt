@@ -8,3 +8,8 @@ data class DonateDto(
     @SerializedName("error_code") val errorCode: String?,
     @SerializedName("error_message") val errorMessage: String?
 ) : Serializable
+
+data class DonateDtoWrapper(
+    @SerializedName("status_code") val statusCode: Int,
+    @SerializedName("response_data") val responseData: DonateDto?
+) : Serializable

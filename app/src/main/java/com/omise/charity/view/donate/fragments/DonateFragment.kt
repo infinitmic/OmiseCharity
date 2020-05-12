@@ -135,7 +135,7 @@ class DonateFragment : BaseFragmentWithPresenter(), DonateFragmentView {
         return DonateForm(
             etvName.text.toString(),
             etvToken.text.toString(),
-            etvAmount.text.toString().toInt()
+            if (etvAmount.text.toString().isBlank()) 0 else etvAmount.text.toString().toInt()
         )
     }
 

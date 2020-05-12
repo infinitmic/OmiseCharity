@@ -9,12 +9,12 @@ interface CharitiesApiResponse : DomainMappable<CharitiesResult> {
 }
 
 data class CharitiesSuccessResponse(
-    private val charitiesApiResult: CharityListDto
+    private val charityListDtoWrapper: CharityListDtoWrapper
 ) : CharitiesApiResponse {
     override fun asDomain() = CharitiesSuccess(
         CharityList(
-            charitiesApiResult.totalResults,
-            charitiesApiResult.charityDtos?.flatMap { it ->
+            charityListDtoWrapper.responseData?.totalResults,
+            charityListDtoWrapper.responseData?.charityDtos?.flatMap { it ->
                 listOf(
                     Charity(
                         it.id,
