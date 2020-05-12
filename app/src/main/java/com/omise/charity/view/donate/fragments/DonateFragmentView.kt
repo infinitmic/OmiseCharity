@@ -3,11 +3,7 @@ package com.omise.charity.view.donate.fragments
 interface DonateFragmentView {
     fun showError(error: Throwable)
     fun clearErrors()
-    fun clearNameError()
-    fun clearTokenError()
     fun clearAmountError()
-    fun invalidName(errorMsg: String)
-    fun invalidToken(errorMsg: String)
     fun invalidAmount(errorMsg: String)
     fun onDonateSuccess()
     fun onDonateFailure(errorMsg: String?)

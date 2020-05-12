@@ -7,8 +7,6 @@
     tools:context=".view.donate.screen.DonateActivity">
 
     <androidx.core.widget.NestedScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/nsvUserInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,6 +37,7 @@
 
                 <EditText
                     android:id="@+id/etvName"
+                    android:enabled="false"
                     style="@style/CharityEditTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -46,31 +45,6 @@
                     android:singleLine="true"
                     android:inputType="textPersonName"
                     android:hint="@string/label_donate_name_hint" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tvToken"
-                    style="@style/CharityLabelTextStyleBold"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_3sdp"
-                    android:text="@string/label_donate_token" />
-
-                <EditText
-                    android:id="@+id/etvToken"
-                    style="@style/CharityEditTextStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/label_donate_token_hint"
-                    android:maxLength="30"
-                    android:singleLine="true"
-                    android:inputType="text" />
 
             </LinearLayout>
 

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import co.omise.android.models.Token
 import com.omise.charity.R
 import com.omise.charity.model.DonateForm
 import com.omise.charity.view.common.BaseFragmentWithPresenter
@@ -17,10 +18,8 @@ class DonateFragment : BaseFragmentWithPresenter(), DonateFragmentView {
 
     lateinit var callback: OnDonate
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        retainInstance = true
-    }
+    lateinit var token: Token
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,8 +29,14 @@ class DonateFragment : BaseFragmentWithPresenter(), DonateFragmentView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        init()
+    }
+
+    private fun init() {
+        token = callback.getPaymentToken()
         btnSubmit.setOnClickListener { presenter.donate(getDonateForm()) }
         rlRootDonate.setOnClickListener { clearFocus() }
+        etvName.setText(token.card?.name)
     }
 
     companion object {
@@ -43,28 +48,12 @@ class DonateFragment : BaseFragmentWithPresenter(), DonateFragmentView {
     }
 
     override fun clearErrors() {
-        clearNameError()
-        clearTokenError()
+        clearAmountError()
     }
 
-    override fun clearNameError() {
-        etvName.error = null
-    }
-
-    override fun clearTokenError() {
-        etvToken.error = null
-    }
 
     override fun clearAmountError() {
         etvAmount.error = null
-    }
-
-    override fun invalidName(errorMsg: String) {
-        etvName.error = errorMsg
-    }
-
-    override fun invalidToken(errorMsg: String) {
-        etvToken.error = errorMsg
     }
 
     override fun invalidAmount(errorMsg: String) {
@@ -88,21 +77,12 @@ class DonateFragment : BaseFragmentWithPresenter(), DonateFragmentView {
     }
 
     override fun enableAllInput() {
-        etvName.isEnabled = true
-
-        etvToken.isEnabled = true
-
         etvAmount.isEnabled = true
 
         btnSubmit.isEnabled = true
     }
 
     override fun disableAllInput() {
-        etvName.clearFocus()
-        etvName.isEnabled = false
-
-        etvToken.clearFocus()
-        etvToken.isEnabled = false
 
         etvAmount.clearFocus()
         etvAmount.isEnabled = false
@@ -131,21 +111,17 @@ class DonateFragment : BaseFragmentWithPresenter(), DonateFragmentView {
         callback.displayGenericErrorMessage(errorMsg)
     }
 
-    private fun getDonateForm(): DonateForm {
-        return DonateForm(
-            etvName.text.toString(),
-            etvToken.text.toString(),
-            if (etvAmount.text.toString().isBlank()) 0 else etvAmount.text.toString().toInt()
-        )
-    }
+    private fun getDonateForm(): DonateForm = DonateForm(
+        token.card?.name,
+        token.id,
+        if (etvAmount.text.toString().isBlank()) 0 else etvAmount.text.toString().toInt()
+    )
 
     fun setParentCallback(callback: OnDonate) {
         this.callback = callback
     }
 
     private fun clearFocus() {
-        etvName.clearFocus()
-        etvToken.clearFocus()
         etvAmount.clearFocus()
     }
 
@@ -158,5 +134,6 @@ class DonateFragment : BaseFragmentWithPresenter(), DonateFragmentView {
         fun displayServerUnreachableError()
         fun displayCallFailedError()
         fun displayGenericErrorMessage(errorMsg: String?)
+        fun getPaymentToken(): Token
     }
 }

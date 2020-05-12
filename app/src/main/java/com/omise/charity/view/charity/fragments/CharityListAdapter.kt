@@ -4,4 +4,4 @@ import com.omise.charity.view.common.AnyItemAdapter
 import com.omise.charity.view.common.RecyclerListAdapter
 
 
-class CharityListAdapter(items: List<AnyItemAdapter>) : RecyclerListAdapter(items)
+class CharityListAdapter(items: List<AnyItemAdapter>?) : RecyclerListAdapter(items!!)

@@ -23,6 +23,9 @@
         </activity>
         <activity android:name=".view.donate.screen.DonateActivity">
         </activity>
+        <activity
+            android:name="co.omise.android.ui.CreditCardActivity"
+            android:theme="@style/OmiseTheme" />
     </application>
 
 </manifest>

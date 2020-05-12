@@ -17,11 +17,12 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField "String", "OMISE_CHARITY_API_URL", "\"https://virtserver.swaggerhub.com/chakritw/tamboon-api/1.0.0/\""
+        buildConfigField "String", "OMISE_PUBLIC_API_KEY", "\"pkey_test_5jujfz0v5tn8wi8bdoy\""
     }
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguarxd-rules.pro'
         }
     }
 }
@@ -36,11 +37,6 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
 
     // Retrofit library
-    //implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    //implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-    //implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
-    //implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
-    // Retrofit
     implementation (["com.squareup.retrofit2:retrofit:$retrofit_version",
                      "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version",
                      "com.squareup.retrofit2:converter-gson:$retrofit_version",
@@ -49,10 +45,8 @@ dependencies {
 
     // Dagger
     implementation "com.google.dagger:dagger:$dagger_version"
-    //annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     implementation "com.google.dagger:dagger-android-support:$dagger_version"
-    //annotationProcessor "com.google.dagger:dagger-android-processor:$dagger_version"
     kapt "com.google.dagger:dagger-android-processor:$dagger_version"
 
 
@@ -75,11 +69,11 @@ dependencies {
     // Android X Material Design
     implementation "com.google.android.material:material:$material_design_version"
 
+    // SDP
     implementation "com.intuit.sdp:sdp-android:$sdp_version"
 
-    //anko
-    implementation "org.jetbrains.anko:anko:$anko_version"
-    implementation "org.jetbrains.anko:anko-sqlite:$anko_version"
+    // Omise sdk
+    implementation 'co.omise:omise-android:3.0.0'
 
     implementation "androidx.constraintlayout:constraintlayout:$x_appcompat_constraintlayout_version"
     testImplementation "junit:junit:$junit_version"

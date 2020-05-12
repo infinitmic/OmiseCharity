@@ -1,17 +1,21 @@
 package com.omise.charity.view.donate.screen
 
+import android.content.Context
 import android.os.Bundle
-import android.view.MenuItem
 import androidx.fragment.app.Fragment
+import co.omise.android.models.Token
 import com.omise.charity.R
 import com.omise.charity.view.common.SingleFragmentActivity
-import com.omise.charity.view.common.action
-import com.omise.charity.view.common.snack
+import com.omise.charity.view.common.extra
+import com.omise.charity.view.common.getIntent
 import com.omise.charity.view.donate.fragments.DonateFragment
 
 
 class DonateActivity : SingleFragmentActivity(),
     DonateFragment.OnDonate {
+
+    val token: Token by extra(PAYMENT_TAG)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -25,9 +29,6 @@ class DonateActivity : SingleFragmentActivity(),
         return fragment
     }
 
-    override fun onDonateSuccess() {
-        displayMessage("Successfully Donated!")
-    }
 
     override fun onDonateFailure(errorMsg: String?) = displayMessage("Donation Failed! $errorMsg")
     override fun onDonateError(error: Throwable) = displayMessage(error.localizedMessage)
@@ -37,15 +38,24 @@ class DonateActivity : SingleFragmentActivity(),
     override fun displayGenericErrorMessage(errorMsg: String?) =
         displayMessage("Error Occurred! $errorMsg")
 
-    private fun displayMessage(msg: String) {
-        window.decorView.rootView
-            .snack(msg) {
-                action("OK") { }
-            }
+    override fun getPaymentToken(): Token {
+        return token
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(item.itemId == android.R.id.home) finish()
-        return super.onOptionsItemSelected(item)
+    override fun onDonateSuccess() {
+        displayMessage("Successfully Donated!")
+    }
+
+    companion object {
+        private const val PAYMENT_TAG = "com.omise.charity.view.donate.screen.DonateActivity.Token"
+
+        private fun getDonateIntent(context: Context, token: Token?) = context
+            .getIntent<DonateActivity>()
+            .apply { putExtra(PAYMENT_TAG, token) }
+
+        fun start(context: Context, token: Token?) {
+            val intent = getDonateIntent(context, token)
+            context.startActivity(intent)
+        }
     }
 }

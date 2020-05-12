@@ -13,6 +13,7 @@ import com.omise.charity.view.common.bindToSwipeRefresh
 import kotlinx.android.synthetic.main.fragment_charity_list.*
 import javax.inject.Inject
 
+
 class CharityListFragment : BaseFragmentWithPresenter(), CharityListFragmentView {
 
     @Inject
@@ -22,11 +23,6 @@ class CharityListFragment : BaseFragmentWithPresenter(), CharityListFragmentView
 
     private lateinit var callback: OnCharity
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        retainInstance = true
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,9 +31,14 @@ class CharityListFragment : BaseFragmentWithPresenter(), CharityListFragmentView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        init()
+    }
+
+    private fun init() {
         mRecyclerView.layoutManager = LinearLayoutManager(activity)
+        mRecyclerView.setParentView(swipeRefreshView)
+        mRecyclerView.setEmptyView(list_empty_view)
         swipeRefreshView.setOnRefreshListener { presenter.onRefresh() }
-        btnDonations.setOnClickListener { callback.onDonateClick() }
         presenter.onViewCreated()
     }
 
@@ -63,14 +64,17 @@ class CharityListFragment : BaseFragmentWithPresenter(), CharityListFragmentView
 
     override fun displayNoNetworkError() {
         callback.displayNoNetworkError()
+        showEmptyList()
     }
 
     override fun displayServerUnreachableError() {
         callback.displayServerUnreachableError()
+        showEmptyList()
     }
 
     override fun displayCallFailedError() {
         callback.displayCallFailedError()
+        showEmptyList()
     }
 
     override fun displayGenericErrorMessage(errorMsg: String?) {
@@ -88,7 +92,10 @@ class CharityListFragment : BaseFragmentWithPresenter(), CharityListFragmentView
     override fun onDestroyView() {
         super.onDestroyView()
         swipeRefreshView.setOnRefreshListener(null)
-        btnDonations.setOnClickListener(null)
+    }
+
+    private fun showEmptyList() {
+        mRecyclerView.adapter = null
     }
 
     interface OnCharity {

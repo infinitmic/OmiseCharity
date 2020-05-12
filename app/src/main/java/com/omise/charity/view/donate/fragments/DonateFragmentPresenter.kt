@@ -10,7 +10,6 @@ import com.omise.charity.network.OmiseRepository
 import com.omise.charity.network.ServerUnreachableException
 import com.omise.charity.presenter.BasePresenter
 import com.omise.charity.util.rx.SchedulersCoupler
-import com.omise.charity.util.rx.applySchedulers
 import com.omise.charity.util.rx.plusAssign
 import com.omise.charity.util.rx.subscribeBy
 import com.omise.charity.view.donate.fragments.helper.DonateErrorMessage
@@ -31,20 +30,6 @@ class DonateFragmentPresenter @Inject constructor(
         view.disableAllInput()
         view.showProgress()
 
-        if (!uiValidator.isNameValid(donateForm.name)) {
-            view.hideProgress()
-            view.enableAllInput()
-            view.invalidName(errorMessageHandler.invalidName())
-            return
-        }
-
-        if (!uiValidator.isTokenValid(donateForm.token)) {
-            view.hideProgress()
-            view.enableAllInput()
-            view.invalidToken(errorMessageHandler.invalidToken())
-            return
-        }
-
         if (!uiValidator.isAmountValid(donateForm.amount)) {
             view.hideProgress()
             view.enableAllInput()
@@ -54,7 +39,7 @@ class DonateFragmentPresenter @Inject constructor(
 
         subscriptions += omiseRepository
             .donate(donateForm)
-            .applySchedulers()
+            .compose(schedulers.convertToAsyncSingle())
             .doOnSubscribe { view.showProgress() }
             .doFinally { view.hideProgress() }
             .subscribeBy(

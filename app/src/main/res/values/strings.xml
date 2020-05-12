@@ -7,11 +7,12 @@
     <string name="label_donate_token">Enter Token</string>
     <string name="label_donate_token_hint">abc_def_ghi</string>
     <string name="label_donate_amount">Amount</string>
-    <string name="label_donate_amount_hint">e.g.$100</string>
+    <string name="label_donate_amount_hint">e.g.TBH 100</string>
     <string name="label_donate_submit">Submit</string>
-    <string name="label_common_processing_request">Processing Request..</string>
+    <string name="label_common_processing_request">Transaction in progress..</string>
     <string name="label_invalid_name">Name not valid</string>
     <string name="label_invalid_token">Token not valid</string>
     <string name="label_invalid_amount">Amount not valid</string>
-
+    <string name="label_request_cancelled">Request Cancelled!</string>
+    <string name="label_reload">Reload</string>
 </resources>

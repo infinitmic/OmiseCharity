@@ -2,6 +2,8 @@ package com.omise.charity.view.common
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
+import android.os.Parcelable
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
@@ -56,3 +58,9 @@ fun Snackbar.action(action: String, color: Int? = null, listener: (View) -> Unit
 
 inline fun <reified T : Activity> Context.startActivity(vararg params: Pair<String, Any?>) =
     CharityActivityInternals.internalStartActivity(this, T::class.java, params)
+
+inline fun <reified T : Activity> Context.getIntent() = Intent(this, T::class.java)
+
+fun <T : Parcelable> Activity.extra(key: String, default: T? = null): Lazy<T> = lazy {
+    intent?.extras?.getParcelable<T>(key) ?: default ?: throw Error("No value $key in extras")
+}
