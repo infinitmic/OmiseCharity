@@ -10,10 +10,6 @@ class DonateErrorMessageImpl @Inject constructor(val resourcesValueProvider: Res
         return resourcesValueProvider.provideStringValue(R.string.label_invalid_name)
     }
 
-    override fun invalidToken(): String {
-        return resourcesValueProvider.provideStringValue(R.string.label_invalid_token)
-    }
-
     override fun invalidAmount(): String {
         return resourcesValueProvider.provideStringValue(R.string.label_invalid_amount)
     }

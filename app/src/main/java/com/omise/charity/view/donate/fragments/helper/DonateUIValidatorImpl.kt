@@ -6,10 +6,6 @@ class DonateUIValidatorImpl : DonateUIValidator {
         return !name.isBlank()
     }
 
-    override fun isTokenValid(token: String): Boolean {
-        return !token.isBlank()
-    }
-
     override fun isAmountValid(amount: Int): Boolean {
         return amount > 0
     }

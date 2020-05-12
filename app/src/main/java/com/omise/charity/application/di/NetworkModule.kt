@@ -2,6 +2,7 @@ package com.omise.charity.application.di
 
 import com.omise.charity.network.ApiInterface
 import com.omise.charity.network.OmiseRepository
+import com.omise.charity.network.OmiseRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -18,7 +19,6 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun providesNewsRepository(apiInterface: ApiInterface): OmiseRepository {
-        return OmiseRepository(apiInterface)
-    }
+    fun providesOmiseRepository(apiInterface: ApiInterface): OmiseRepository =
+        OmiseRepositoryImpl(apiInterface)
 }

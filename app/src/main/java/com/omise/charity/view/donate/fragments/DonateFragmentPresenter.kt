@@ -4,10 +4,7 @@ package com.omise.charity.view.donate.fragments
 import com.omise.charity.model.Donate
 import com.omise.charity.model.DonateForm
 import com.omise.charity.model.DonateResult
-import com.omise.charity.network.HttpCallFailureException
-import com.omise.charity.network.NoNetworkException
-import com.omise.charity.network.OmiseRepository
-import com.omise.charity.network.ServerUnreachableException
+import com.omise.charity.network.*
 import com.omise.charity.presenter.BasePresenter
 import com.omise.charity.util.rx.SchedulersCoupler
 import com.omise.charity.util.rx.plusAssign
@@ -40,8 +37,6 @@ class DonateFragmentPresenter @Inject constructor(
         subscriptions += omiseRepository
             .donate(donateForm)
             .compose(schedulers.convertToAsyncSingle())
-            .doOnSubscribe { view.showProgress() }
-            .doFinally { view.hideProgress() }
             .subscribeBy(
                 onSuccess = ::onApiSuccess,
                 onError = ::displayError

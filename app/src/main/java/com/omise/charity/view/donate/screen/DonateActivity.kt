@@ -2,7 +2,9 @@ package com.omise.charity.view.donate.screen
 
 import android.content.Context
 import android.content.DialogInterface
+import android.os.Build
 import android.os.Bundle
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.fragment.app.Fragment
@@ -17,7 +19,7 @@ import com.omise.charity.view.donate.fragments.DonateFragment
 class DonateActivity : SingleFragmentActivity(),
     DonateFragment.OnDonate {
 
-    val token: Token by extra(PAYMENT_TAG)
+    private val token: Token by extra(PAYMENT_TAG)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

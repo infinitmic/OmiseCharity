@@ -3,19 +3,17 @@ package com.omise.charity.view.charity.fragments
 import com.omise.charity.model.CharitiesFailure
 import com.omise.charity.model.CharitiesResult
 import com.omise.charity.model.CharitiesSuccess
-import com.omise.charity.network.HttpCallFailureException
-import com.omise.charity.network.NoNetworkException
-import com.omise.charity.network.OmiseRepository
-import com.omise.charity.network.ServerUnreachableException
+import com.omise.charity.network.*
 import com.omise.charity.presenter.BasePresenter
-import com.omise.charity.util.rx.applySchedulers
+import com.omise.charity.util.rx.SchedulersCoupler
 import com.omise.charity.util.rx.plusAssign
 import com.omise.charity.util.rx.subscribeBy
 import javax.inject.Inject
 
 class CharityListFragmentPresenter @Inject constructor(
     val view: CharityListFragmentView,
-    private val omiseRepository: OmiseRepository
+    private val omiseRepository: OmiseRepository,
+    private val schedulers: SchedulersCoupler
 ) :
     BasePresenter() {
 
@@ -30,7 +28,7 @@ class CharityListFragmentPresenter @Inject constructor(
     private fun loadData() {
         subscriptions += omiseRepository
             .getCharities()
-            .applySchedulers()
+            .compose(schedulers.convertToAsyncSingle())
             .doOnSubscribe { view.refresh = true }
             .doFinally { view.refresh = false }
             .subscribeBy(
