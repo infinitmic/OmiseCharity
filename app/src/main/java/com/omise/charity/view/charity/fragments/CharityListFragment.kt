@@ -36,9 +36,14 @@ class CharityListFragment : BaseFragmentWithPresenter(), CharityListFragmentView
 
     private fun init() {
         mRecyclerView.layoutManager = LinearLayoutManager(activity)
-        mRecyclerView.setParentView(swipeRefreshView)
         mRecyclerView.setEmptyView(list_empty_view)
         swipeRefreshView.setOnRefreshListener { presenter.onRefresh() }
+        btnReload.setOnClickListener {
+            if (!refresh) {
+                swipeRefreshView.visibility = View.VISIBLE
+                presenter.onRefresh()
+            } else callback.showMessage("Loading In Progress!")
+        }
         presenter.onViewCreated()
     }
 
@@ -92,10 +97,12 @@ class CharityListFragment : BaseFragmentWithPresenter(), CharityListFragmentView
     override fun onDestroyView() {
         super.onDestroyView()
         swipeRefreshView.setOnRefreshListener(null)
+        btnReload.setOnClickListener(null)
     }
 
     private fun showEmptyList() {
         mRecyclerView.adapter = null
+        swipeRefreshView.visibility = View.GONE
     }
 
     interface OnCharity {

@@ -28,7 +28,6 @@ class EmptyRecyclerView : RecyclerView {
                 if (adapter == null || adapter!!.itemCount == 0) View.VISIBLE else View.GONE
             this@EmptyRecyclerView.visibility =
                 if (adapter == null || adapter!!.itemCount == 0) View.GONE else View.VISIBLE
-            mParentView?.visibility = this@EmptyRecyclerView.visibility
         }
     }
 
@@ -60,9 +59,5 @@ class EmptyRecyclerView : RecyclerView {
     fun setEmptyView(view: View?) {
         mEmptyView = view
         initEmptyView()
-    }
-
-    fun setParentView(view: View?) {
-        mParentView = view
     }
 }

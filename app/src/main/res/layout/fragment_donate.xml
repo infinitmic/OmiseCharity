@@ -82,6 +82,14 @@
                 android:gravity="center"
                 android:text="@string/label_donate_submit" />
 
+            <ProgressBar
+                android:id="@+id/progressBarDonate"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:visibility="invisible"
+                android:layout_width="@dimen/_48sdp"
+                android:layout_height="@dimen/_48sdp"/>
+
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

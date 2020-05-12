@@ -70,10 +70,12 @@ class DonateFragment : BaseFragmentWithPresenter(), DonateFragmentView {
 
     override fun showProgress() {
         btnSubmit.text = getString(R.string.label_common_processing_request)
+        progressBarDonate.visibility = View.VISIBLE
     }
 
     override fun hideProgress() {
         btnSubmit.text = getString(R.string.label_donate_submit)
+        progressBarDonate.visibility = View.GONE
     }
 
     override fun enableAllInput() {

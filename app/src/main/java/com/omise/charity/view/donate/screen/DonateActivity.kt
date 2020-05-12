@@ -1,7 +1,10 @@
 package com.omise.charity.view.donate.screen
 
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.view.ContextThemeWrapper
 import androidx.fragment.app.Fragment
 import co.omise.android.models.Token
 import com.omise.charity.R
@@ -29,8 +32,8 @@ class DonateActivity : SingleFragmentActivity(),
         return fragment
     }
 
-
-    override fun onDonateFailure(errorMsg: String?) = displayMessage("Donation Failed! $errorMsg")
+    override fun onDonateSuccess() = showDialog("Your transaction is successful!")
+    override fun onDonateFailure(errorMsg: String?) = showDialog("Donation Failed! $errorMsg")
     override fun onDonateError(error: Throwable) = displayMessage(error.localizedMessage)
     override fun displayNoNetworkError() = displayMessage("No Network!")
     override fun displayServerUnreachableError() = displayMessage("Server Unreachable!")
@@ -40,10 +43,6 @@ class DonateActivity : SingleFragmentActivity(),
 
     override fun getPaymentToken(): Token {
         return token
-    }
-
-    override fun onDonateSuccess() {
-        displayMessage("Successfully Donated!")
     }
 
     companion object {
@@ -56,6 +55,22 @@ class DonateActivity : SingleFragmentActivity(),
         fun start(context: Context, token: Token?) {
             val intent = getDonateIntent(context, token)
             context.startActivity(intent)
+        }
+    }
+
+    private fun showDialog(msg: String) {
+
+        val builder =
+            AlertDialog.Builder(ContextThemeWrapper(this, android.R.style.ThemeOverlay_Material_Dialog))
+
+        with(builder)
+        {
+            setTitle("Donate")
+            setMessage(msg)
+            setPositiveButton("OK") { _: DialogInterface, _: Int ->
+                finish()
+            }
+            show()
         }
     }
 }
